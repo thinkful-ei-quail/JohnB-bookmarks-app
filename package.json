@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/jgbowser/bookmarks-app-JohnB/issues"
   },
-  "homepage": "https://github.com/jgbowser/bookmarks-app-JohnB#readme"
+  "homepage": "https://github.com/jgbowser/bookmarks-app-JohnB#readme",
+  "dependencies": {
+    "jquery": "^3.5.1"
+  }
 }
