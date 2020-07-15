@@ -1,0 +1,20 @@
+{
+  "name": "bookmarks-app",
+  "version": "1.0.0",
+  "description": "Bookmarks API Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgbowser/bookmarks-app-JohnB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jgbowser/bookmarks-app-JohnB/issues"
+  },
+  "homepage": "https://github.com/jgbowser/bookmarks-app-JohnB#readme"
+}
