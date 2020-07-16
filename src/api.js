@@ -1,4 +1,3 @@
-import $ from 'jquery';
 
 //functions for interacting with API//
 
@@ -32,4 +31,17 @@ const getBookmarks = function() {
   return callApi(`${BASE_URL}/bookmarks`);
 };
 
-const createBookmark = function()
+const createBookmark = function(newBookmark) {
+  let bookmarkInfo = JSON.stringify(newBookmark);
+  return callApi(`${BASE_URL}/bookmarks`, {method: 'POST', headers: {'content-type': 'application/json'}, body: bookmarkInfo});
+};
+
+const deleteBookmark = function(id) {
+  return callApi(`${BASE_URL}/bookmarks/${id}`, {method: 'DELETE'});
+};
+
+export default {
+  getBookmarks,
+  createBookmark,
+  deleteBookmark
+};

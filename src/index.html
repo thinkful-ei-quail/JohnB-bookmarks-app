@@ -17,7 +17,8 @@
             <button type="submit" class="js-add-bookmark"><i class="fas fa-plus"></i> Add Bookmark</button>
             <label for="rating-filter">Filter:
                 <select id="rating-filter" name="filter">
-                    <option value="1">1 star</i></option>
+                    <option value="0">---</option>
+                    <option value="1">1 star</option>
                     <option value="2">2 stars</option>
                     <option value="3">3 stars</option>
                     <option value="4">4 stars</option>
@@ -26,7 +27,7 @@
             </label>
         </form>
         <div class="bookmark-list-container">
-            <ul class="bookmark-list">
+            <ul class="js-bookmark-list bookmark-list">
             </ul>
         </div>
     </div>
