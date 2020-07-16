@@ -1,0 +1,233 @@
+/* Overall Page Formating */
+
+* {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    height: 100vh;
+    font-family: sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+}
+
+.header {
+    background-color: lightgray;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    background-color: lightslategray;
+    margin: 0;
+    padding: 10px 10px;
+    height: 100%;
+}
+
+/* initial View & Expanded View */
+
+.bookmark-form {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-top: 37px;
+    padding: 15px 10px;
+    justify-content: space-between;
+    width: 100%;
+    background-color: lightslategray;
+}
+
+.bookmark-list-container {
+    margin: 80px 0 10px 0;
+    background-color: lightgray;
+    height: 100%;
+    overflow-y: scroll;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.shrunk-view {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 10px 20px 10px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.title {
+    font-size: 12px;
+    align-self: center;
+}
+
+.title p {
+    margin: 0;
+}
+
+.expanded-description {
+    border-bottom:1px solid black;
+    background-color: white;
+}
+
+.close-btn {
+    
+    margin: 5px 5px 0 5px;
+}
+
+p.description-text {
+    margin: 0;
+    padding: 10px;
+
+}
+
+.hidden {
+    display: none;
+}
+
+.fa-star {
+    color: red;
+    font-size: 10px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 20px;
+    background-color: lightslategray;
+}
+
+/* Add Bookmark & Error Page */
+
+.add-bookmark-subheader {
+    margin-top: 45px;
+    text-align: center;
+}
+
+.add-bookmark-container {
+    margin: 30px 0 10px 0;
+    background-color: lightgray;
+    height: 100%;
+    overflow-y: scroll;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.add-form-label:first-of-type {
+    margin-top: 10px;
+}
+
+.add-form-input:last-of-type {
+    margin-bottom: 20px;
+}
+
+.add-form-label,
+.add-form-input {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    text-align: center;
+}
+
+.add-form-label {
+    font-weight: 800;
+}
+
+.add-form-input {
+    padding: 10px;
+}
+
+#rating {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.add-form-button {
+    display: inline-block;
+    width: 40%;
+    padding: 10px 20px;
+    margin-left: 19px;
+}
+
+.cancel-btn {
+    background-color: rgb(255, 79, 79);
+    font-weight: 800;
+    border: none;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    background-color: rgb(79, 255, 79);
+    font-weight: 800;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Error Box */
+
+
+
+.error-box {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 45%;
+    left: 25%;
+   
+    width: 50%;
+    height: 20%;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+
+}
+
+.error-text {
+    align-self: center;
+    justify-items: center;
+    margin: auto;
+}
+
+.close-error-button {
+    align-self: flex-end;
+    background-color: rgb(253, 75, 75);
+    border: 2px solid red;
+    
+    width: 100%;
+    margin-left: 10px;
+    padding: 0;
+    font-size: 20px;
+}
+
+i.fa-window-close:hover {
+    cursor: pointer;
+    text-align: right;
+}

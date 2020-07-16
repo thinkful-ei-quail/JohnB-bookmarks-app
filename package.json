@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/jgbowser/bookmarks-app-JohnB#readme",
   "dependencies": {
-    "jquery": "^3.5.1"
+    "cuid": "^2.1.8",
+    "jquery": "^3.5.1",
+    "normalize.css": "^8.0.1"
   },
   "devDependencies": {
     "css-loader": "^3.6.0",
