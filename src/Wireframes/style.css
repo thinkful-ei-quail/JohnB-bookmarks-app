@@ -186,3 +186,44 @@ footer {
     border: none;
     border-radius: 5px;
 }
+
+/* Error Box */
+
+
+
+.error-box {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 45%;
+    left: 25%;
+   
+    width: 50%;
+    height: 20%;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+
+}
+
+.error-text {
+    align-self: center;
+    justify-items: center;
+    margin: auto;
+}
+
+.close-error-button {
+    align-self: flex-end;
+    background-color: rgb(253, 75, 75);
+    border: 2px solid red;
+    
+    width: 100%;
+    margin-left: 10px;
+    padding: 0;
+    font-size: 20px;
+}
+
+i.fa-window-close:hover {
+    cursor: pointer;
+    text-align: right;
+}

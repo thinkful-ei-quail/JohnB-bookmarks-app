@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/ea23300516.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    
+    <div class="header">
+        <h1>My Bookmarks</h1>
+    </div>
+    <div class="main-content">
+        <div class="add-bookmark-subheader"><h4>Please fill out all available fields</h2></div>
+        <div class="add-bookmark-container">
+            <form class="add-bookmark-form">
+                <label class="add-form-label" for="title">Title</label>
+                <input class="add-form-input" type="text" id="title" placeholder="Bookmark title" name="title" required/>
+                <label class="add-form-label" for="url">URL</label>
+                <input class="add-form-input" type="url" id="url" placeholder="http://www.example.com" name="url" required/>
+                <label for="rating" class="add-form-label">Rating</label>
+                <select class="add-form-input" name="rating" id="rating">
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+                <label for="description" class="add-form-label">Description</label>
+                <textarea class="add-form-input" name="description" id="description" ></textarea>
+                <button class="js-cancel-add add-form-button cancel-btn">Cancel</button>
+                <button class="js-submit-add add-form-button submit-btn" type="submit">Submit</button>
+            </form>
+            <div class="js-error-box error-box"><div class="js-close-error-button close-error-button"><i class="fas fa-window-close"></i></div><div class="error-text">Error Text Here</div></div>
+            
+        </div>
+    </div>
+    <footer></footer>
 </body>
+
 </html>
