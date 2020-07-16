@@ -3,6 +3,30 @@ import store from './store';
 
 // Event handlers and HTML templates //
 
+
+// HTML Templates //
+
+const generateMainPage = function(bookmarks) {
+  return `<form class="js-bookmark-form bookmark-form">
+  <button type="submit" class="js-add-bookmark"><i class="fas fa-plus"></i> Add Bookmark</button>
+  <label for="rating-filter">Filter:
+      <select id="rating-filter" name="filter">
+          <option value="0">---</option>
+          <option value="1">1 star</option>
+          <option value="2">2 stars</option>
+          <option value="3">3 stars</option>
+          <option value="4">4 stars</option>
+          <option value="5">5 stars</option>
+      </select>
+  </label>
+</form>
+<div class="bookmark-list-container">
+  <ul class="js-bookmark-list bookmark-list">
+  ${bookmarks}
+  </ul>
+</div>`;
+};
+
 const generateBookmarkItemElement = function(item) {
   let starCount = '';
   switch(item.rating) {
@@ -83,11 +107,37 @@ const render = function() {
     }
 
     const bookmarkListHTML = generateBookmarkListString(items);
+    const fullPage = generateMainPage(bookmarkListHTML);
 
-    $('.js-bookmark-list').html(bookmarkListHTML);
+    $('.main-content').html(fullPage);
   }
+};
+
+// Event Handlers //
+
+const handleNewBookmarkClick = function() {
+  $('.main-content').on('click', '.js-add-bookmark', event => {
+    event.preventDefault();
+    store.STORE.adding = true;
+    render();
+  });
+};
+
+const handleCancelNewBookmark = function() {
+  $('.main-content').on('click', '.js-cancel-add', (event) => {
+    event.preventDefault();
+    store.STORE.adding = false;
+    render();
+  });
+};
+
+
+const bindEventListeners = function() {
+  handleNewBookmarkClick();
+  handleCancelNewBookmark();
 };
 
 export default {
   render,
+  bindEventListeners,
 };
