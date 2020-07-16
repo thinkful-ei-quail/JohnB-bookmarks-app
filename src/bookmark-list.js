@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import store from './store';
+import api from './api';
 
 // Event handlers and HTML templates //
 
@@ -88,7 +89,7 @@ const generateAddBookmarkPage = function() {
           </select>
           <label for="description" class="add-form-label">Description</label>
           <textarea class="add-form-input" name="description" id="description" ></textarea>
-          <button class="js-cancel-add add-form-button cancel-btn">Cancel</button>
+          <button class="js-cancel-add add-form-button cancel-btn">Close</button>
           <button class="js-submit-add add-form-button submit-btn" type="submit">Submit</button>
       </form>
       ${store.STORE.error ? `<div class="js-error-box error-box"><div class="js-close-error-button close-error-button"><i class="fas fa-window-close"></i></div><div class="error-text">${store.STORE.error.message}</div></div>` : ''} 
@@ -109,14 +110,14 @@ const render = function() {
     const bookmarkListHTML = generateBookmarkListString(items);
     const fullPage = generateMainPage(bookmarkListHTML);
 
-    $('.main-content').html(fullPage);
+    $('.js-main-content').html(fullPage);
   }
 };
 
 // Event Handlers //
 
 const handleNewBookmarkClick = function() {
-  $('.main-content').on('click', '.js-add-bookmark', event => {
+  $('.js-main-content').on('click', '.js-add-bookmark', event => {
     event.preventDefault();
     store.STORE.adding = true;
     render();
@@ -124,10 +125,29 @@ const handleNewBookmarkClick = function() {
 };
 
 const handleCancelNewBookmark = function() {
-  $('.main-content').on('click', '.js-cancel-add', (event) => {
+  $('.js-main-content').on('click', '.js-cancel-add', (event) => {
     event.preventDefault();
     store.STORE.adding = false;
     render();
+  });
+};
+
+const handleSubmitNewBookmark = function() {
+  $('.js-main-content').on('click', '.js-submit-add', event => {
+    event.preventDefault();
+    const bookmarkInfo = {
+      title: '',
+      url: '',
+      desc: '',
+      rating: 0 
+    };
+    bookmarkInfo.title = $('#title').val();
+    bookmarkInfo.url = $('#url').val();
+    bookmarkInfo.desc = $('#description').val();
+    bookmarkInfo.rating = $('#rating').val();
+
+    api.createBookmark(bookmarkInfo)
+      .then(data => store.STORE.bookmarks.push(data))
   });
 };
 
@@ -135,6 +155,7 @@ const handleCancelNewBookmark = function() {
 const bindEventListeners = function() {
   handleNewBookmarkClick();
   handleCancelNewBookmark();
+  handleSubmitNewBookmark();
 };
 
 export default {
