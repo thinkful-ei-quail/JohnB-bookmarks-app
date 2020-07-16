@@ -9,7 +9,7 @@ module.exports = {
   mode: 'development',
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/Wireframes/expanded.html',
+      template: './src/Wireframes/add-bookmark.html',
     })
   ],
   module: {

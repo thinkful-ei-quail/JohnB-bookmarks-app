@@ -1,4 +1,6 @@
 
+/* Overall Page Formating */
+
 * {
     box-sizing: border-box;
 }
@@ -32,7 +34,9 @@ h1 {
     height: 100%;
 }
 
-form {
+/* initial View & Expanded View */
+
+.bookmark-form {
     display: flex;
     position: fixed;
     top: 0;
@@ -111,4 +115,74 @@ footer {
     right: 0;
     height: 20px;
     background-color: lightslategray;
+}
+
+/* Add Bookmark & Error Page */
+
+.add-bookmark-subheader {
+    margin-top: 45px;
+    text-align: center;
+}
+
+.add-bookmark-container {
+    margin: 30px 0 10px 0;
+    background-color: lightgray;
+    height: 100%;
+    overflow-y: scroll;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.add-form-label:first-of-type {
+    margin-top: 10px;
+}
+
+.add-form-input:last-of-type {
+    margin-bottom: 20px;
+}
+
+.add-form-label,
+.add-form-input {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    text-align: center;
+}
+
+.add-form-label {
+    font-weight: 800;
+}
+
+.add-form-input {
+    padding: 10px;
+}
+
+#rating {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.add-form-button {
+    display: inline-block;
+    width: 40%;
+    padding: 10px 20px;
+    margin-left: 19px;
+}
+
+.cancel-btn {
+    background-color: rgb(255, 79, 79);
+    font-weight: 800;
+    border: none;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    background-color: rgb(79, 255, 79);
+    font-weight: 800;
+    border: none;
+    border-radius: 5px;
 }
