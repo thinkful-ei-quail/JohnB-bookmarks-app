@@ -93,6 +93,11 @@ li {
     background-color: white;
 }
 
+.close-btn {
+    
+    margin: 5px 5px 0 5px;
+}
+
 p.description-text {
     margin: 0;
     padding: 10px;

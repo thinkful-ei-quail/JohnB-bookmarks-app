@@ -9,7 +9,7 @@ module.exports = {
   mode: 'development',
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/Wireframes/form-error.html',
+      template: './src/Wireframes/expanded.html',
     })
   ],
   module: {
