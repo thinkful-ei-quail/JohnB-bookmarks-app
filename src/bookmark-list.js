@@ -9,8 +9,8 @@ import api from './api';
 
 const generateMainPage = function(bookmarks) {
   return `<form class="js-bookmark-form bookmark-form">
-  <button type="submit" class="js-add-bookmark"><i class="fas fa-plus"></i> Add Bookmark</button>
-  <label for="rating-filter">Filter:
+  <button type="submit" class="js-add-bookmark add-bookmark"><i class="fas fa-plus"></i> Add Bookmark</button>
+  <label for="rating-filter" class="filter-label">Filter:
       <select id="rating-filter" name="filter">
           <option value="0">Select</option>
           <option value="1" ${store.STORE.filter === 1 ? 'selected' : ''} >All</option>
@@ -60,7 +60,7 @@ const generateBookmarkItemElement = function(item) {
         <div class="js-expanded expanded-description ${item.expanded ? '' : 'hidden'}">
         <div clas="delete-button-container"><button type="submit" class="js-delete-btn delete-btn"><i class="far fa-trash-alt"></i></button></div>
             <p class="description-text">${item.desc}</p>
-            <a href="${item.url} target="_blank" alt="link to visit ${item.title}"><button class="visit-site-btn">Visit Page</button></a>
+            <a href="${item.url} target="_blank" alt="link to visit ${item.title}" class="page-link">Visit Page</a>
         </div>
     </div>
 </li>`;
@@ -73,7 +73,7 @@ const generateBookmarkListString = function(bookmarkList) {
 
 
 const generateAddBookmarkPage = function() {
-  return `<div class="add-bookmark-subheader"><h4>Please fill out all available fields</h2></div>
+  return `<div class="add-bookmark-subheader"><h4>Please fill out all available fields</h4></div>
   <div class="add-bookmark-container">
       <form class="add-bookmark-form">
           <label class="add-form-label" for="title">Title</label>
