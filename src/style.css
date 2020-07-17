@@ -216,6 +216,7 @@ footer {
 
 #rating {
     width: 50%;
+    max-width: 150px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -224,7 +225,16 @@ footer {
     display: inline-block;
     width: 40%;
     padding: 10px 20px;
-    margin-left: 19px;
+}
+
+.add-bookmark-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: max-content;
+    min-width: 295px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .cancel-btn {
@@ -232,6 +242,8 @@ footer {
     font-weight: 800;
     border: none;
     border-radius: 5px;
+    max-width: 275px;
+    margin-right: 20px;
 }
 
 .submit-btn {
@@ -239,6 +251,7 @@ footer {
     font-weight: 800;
     border: none;
     border-radius: 5px;
+    max-width: 275px;
 }
 
 /* Error Box */
@@ -305,6 +318,7 @@ i.fa-window-close:hover {
         background-image: radial-gradient( rgba(255, 255, 255, .5),rgba(0, 0, 0, 0.3)), url(./images/bookwall.jpg);
         background-color: white;
         background-size: cover;
-
     }
+
+
 }

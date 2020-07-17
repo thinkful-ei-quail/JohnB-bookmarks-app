@@ -90,8 +90,10 @@ const generateAddBookmarkPage = function() {
           </select>
           <label for="description" class="add-form-label">Description</label>
           <textarea class="add-form-input" name="description" id="description" required></textarea>
+          <div class="add-bookmark-btns">
           <button class="js-cancel-add add-form-button cancel-btn">Close</button>
           <button class="js-submit-add add-form-button submit-btn" type="submit">Submit</button>
+          </div>
       </form>
       ${store.STORE.error ? `<div class="js-error-box error-box"><div class="js-close-error-button close-error-button"><i class="fas fa-window-close"></i></div><div class="error-text">${store.STORE.error}</div></div>` : ''} 
     </div>`;
