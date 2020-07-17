@@ -12,12 +12,12 @@ const generateMainPage = function(bookmarks) {
   <button type="submit" class="js-add-bookmark"><i class="fas fa-plus"></i> Add Bookmark</button>
   <label for="rating-filter">Filter:
       <select id="rating-filter" name="filter">
-          <option value="0">---</option>
-          <option value="1">1 star</option>
-          <option value="2">2 stars</option>
-          <option value="3">3 stars</option>
-          <option value="4">4 stars</option>
-          <option value="5">5 stars</option>
+          <option value="">Select</option>
+          <option value="1" ${store.STORE.filter === 1 ? 'selected="selected"' : ''}>All</option>
+          <option value="2" ${store.STORE.filter === 2 ? 'selected="selected"' : ''}>2 stars</option>
+          <option value="3" ${store.STORE.filter === 3 ? 'selected="selected"' : ''}>3 stars</option>
+          <option value="4" ${store.STORE.filter === 4 ? 'selected="selected"' : ''}>4 stars</option>
+          <option value="5" ${store.STORE.filter === 5 ? 'selected' : ''}>5 stars</option>
       </select>
   </label>
 </form>
@@ -49,7 +49,7 @@ const generateBookmarkItemElement = function(item) {
   return `<li>
     <div class="shrunk-view">
         <div class="title main-tile">
-            <p>${item.title}</p>
+            <p tabindex="0">${item.title}</p>
         </div>
         <div class="list-rating-display main-tile">${starCount}</div>
         
@@ -80,7 +80,7 @@ const generateAddBookmarkPage = function() {
           <label class="add-form-label" for="url">URL</label>
           <input class="add-form-input" type="url" id="url" placeholder="http://www.example.com" name="url" required/>
           <label for="rating" class="add-form-label">Rating</label>
-          <select class="add-form-input" name="rating" id="rating">
+          <select class="add-form-input" name="rating" id="rating" required>
               <option value="1">1 Star</option>
               <option value="2">2 Stars</option>
               <option value="3">3 Stars</option>
@@ -88,16 +88,24 @@ const generateAddBookmarkPage = function() {
               <option value="5">5 Stars</option>
           </select>
           <label for="description" class="add-form-label">Description</label>
-          <textarea class="add-form-input" name="description" id="description" ></textarea>
+          <textarea class="add-form-input" name="description" id="description" required></textarea>
           <button class="js-cancel-add add-form-button cancel-btn">Close</button>
           <button class="js-submit-add add-form-button submit-btn" type="submit">Submit</button>
       </form>
-      ${store.STORE.error ? `<div class="js-error-box error-box"><div class="js-close-error-button close-error-button"><i class="fas fa-window-close"></i></div><div class="error-text">${store.STORE.error.message}</div></div>` : ''} 
+      ${store.STORE.error ? `<div class="js-error-box error-box"><div class="js-close-error-button close-error-button"><i class="fas fa-window-close"></i></div><div class="error-text">${store.STORE.error}</div></div>` : ''} 
     </div>`;
+};
+
+const renderError = function() {
+  if (store.STORE.error) {
+    const showError = generateAddBookmarkPage();
+    $('.js-main-content').html(showError);
+  }
 };
 
 
 const render = function() {
+  renderError();
   if (store.STORE.adding) {
     const addPageString = generateAddBookmarkPage();
     $('.main-content').html(addPageString);
@@ -109,6 +117,7 @@ const render = function() {
 
     const bookmarkListHTML = generateBookmarkListString(items);
     const fullPage = generateMainPage(bookmarkListHTML);
+    //console.log('filter value:', store.STORE.filter);
 
     $('.js-main-content').html(fullPage);
   }
@@ -132,6 +141,13 @@ const handleCancelNewBookmark = function() {
   });
 };
 
+const handleCloserErrorBox = function() {
+  $('.js-main-content').on('click', '.js-close-error-button', () => {
+    store.STORE.error = null;
+    render();
+  });
+};
+
 const handleSubmitNewBookmark = function() {
   $('.js-main-content').on('click', '.js-submit-add', event => {
     event.preventDefault();
@@ -141,21 +157,52 @@ const handleSubmitNewBookmark = function() {
       desc: '',
       rating: 0 
     };
+
     bookmarkInfo.title = $('#title').val();
     bookmarkInfo.url = $('#url').val();
     bookmarkInfo.desc = $('#description').val();
     bookmarkInfo.rating = $('#rating').val();
+    
+    $('#title').val('');
+    $('#url').val('');
+    $('#description').val('');
+    $('#rating').val('');
 
     api.createBookmark(bookmarkInfo)
-      .then(data => store.STORE.bookmarks.push(data))
+      .then(data => {
+        store.addBookmark(data);
+        store.STORE.adding = false;
+        render();
+      })
+      .catch(error => {
+        store.setError(error.message);
+        render();
+      });
   });
 };
+
+const handleFilterSelection = function() {
+  $('.js-main-content').on('change', '#rating-filter', () => {
+    const filterValue = $('#rating-filter').val();
+    store.STORE.filter = filterValue;
+    render();
+  });
+};
+
+const handleExpansion = function() {
+  //event listener for li's
+  //find expansion div in li and toggle hidden class
+  //render
+};
+
 
 
 const bindEventListeners = function() {
   handleNewBookmarkClick();
   handleCancelNewBookmark();
   handleSubmitNewBookmark();
+  handleCloserErrorBox();
+  handleFilterSelection();
 };
 
 export default {
