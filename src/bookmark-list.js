@@ -12,12 +12,12 @@ const generateMainPage = function(bookmarks) {
   <button type="submit" class="js-add-bookmark"><i class="fas fa-plus"></i> Add Bookmark</button>
   <label for="rating-filter">Filter:
       <select id="rating-filter" name="filter">
-          <option value="">Select</option>
-          <option value="1" ${store.STORE.filter === 1 ? 'selected="selected"' : ''}>All</option>
-          <option value="2" ${store.STORE.filter === 2 ? 'selected="selected"' : ''}>2 stars</option>
-          <option value="3" ${store.STORE.filter === 3 ? 'selected="selected"' : ''}>3 stars</option>
-          <option value="4" ${store.STORE.filter === 4 ? 'selected="selected"' : ''}>4 stars</option>
-          <option value="5" ${store.STORE.filter === 5 ? 'selected' : ''}>5 stars</option>
+          <option value="0">Select</option>
+          <option value="1" ${store.STORE.filter === 1 ? 'selected' : ''} >All</option>
+          <option value="2" ${store.STORE.filter === 2 ? 'selected' : ''} >2 stars</option>
+          <option value="3" ${store.STORE.filter === 3 ? 'selected' : ''} >3 stars</option>
+          <option value="4" ${store.STORE.filter === 4 ? 'selected' : ''} >4 stars</option>
+          <option value="5" ${store.STORE.filter === 5 ? 'selected' : ''} >5 stars</option>
       </select>
   </label>
 </form>
@@ -176,7 +176,8 @@ const handleSubmitNewBookmark = function() {
 
 const handleFilterSelection = function() {
   $('.js-main-content').on('change', '#rating-filter', () => {
-    const filterValue = $('#rating-filter').val();
+    const filterValue = Number($('#rating-filter').val());
+    
     store.STORE.filter = filterValue;
     render();
   });
@@ -200,11 +201,30 @@ const handleExpansion = function() {
 };
 
 const handleExpansionKeypress = function() {
-  ('.js-main-content').on('keypress', '.js-tab', event => {
-      if (event.key === ' ' || event.key === 'Enter') {
-        const id = findExpansionElementIdKeypress(event.currentTarget);
-        console.log(id);
-     };
+  $('.js-main-content').on('keypress', '.js-tab', event => {
+    if (event.key === ' ' || event.key === 'Enter') {
+      const id = findExpansionElementIdKeypress(event.currentTarget);
+      const itemInStore = store.findById(id);
+      itemInStore.expanded = !itemInStore.expanded;
+      render();
+    }
+  });
+};
+
+const handleDeleteKeypress = function() {
+  $('.js-main-content').on('keypress', '.js-delete-btn', event => {
+    if (event.key === ' ' || event.key === 'Enter') {
+      const id = findIdForDelete(event.currentTarget);
+      api.deleteBookmark(id)
+        .then(() => {
+          store.findAndDelete(id);
+          render();
+        })
+        .catch((error) => {
+          store.setError(error.message);
+          render();
+        });
+    }
   });
 };
 
@@ -237,6 +257,7 @@ const bindEventListeners = function() {
   handleExpansion();
   handleExpansionKeypress();
   handleDeleteButtonClick();
+  handleDeleteKeypress();
 };
 
 export default {
