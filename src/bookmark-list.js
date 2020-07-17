@@ -33,19 +33,19 @@ const generateBookmarkItemElement = function(item) {
   let starCount = '';
   switch(item.rating) {
   case(1):
-    starCount = "<i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i>";
+    starCount = '<i class=\'fas fa-star\'></i><i class=\'far fa-star\'></i><i class=\'far fa-star\'></i><i class=\'far fa-star\'></i><i class=\'far fa-star\'></i>';
     break;
   case(2):
-    starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i>";
+    starCount = '<i class=\'fas fa-star\'></i><i class=\'fas fa-star\'></i><i class=\'far fa-star\'></i><i class=\'far fa-star\'></i><i class=\'far fa-star\'></i>';
     break;
   case(3):
-    starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i>";
+    starCount = '<i class=\'fas fa-star\'></i><i class=\'fas fa-star\'></i><i class=\'fas fa-star\'></i><i class=\'far fa-star\'></i><i class=\'far fa-star\'></i>';
     break;
   case(4):
-    starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i>";
+    starCount = '<i class=\'fas fa-star\'></i><i class=\'fas fa-star\'></i><i class=\'fas fa-star\'></i><i class=\'fas fa-star\'></i><i class=\'far fa-star\'></i>';
     break;
   case(5):
-    starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i>";
+    starCount = '<i class=\'fas fa-star\'></i><i class=\'fas fa-star\'></i><i class=\'fas fa-star\'></i><i class=\'fas fa-star\'></i><i class=\'fas fa-star\'></i>';
   }
   return `<li tabindex="0" class="js-tab">
     <div class="shrunk-view js-shrunk-view" data-id="${item.id}">

@@ -1,4 +1,3 @@
-import $ from 'jquery';
 
 // functions for manipulating store object //
 
