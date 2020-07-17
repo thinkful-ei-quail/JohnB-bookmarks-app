@@ -25,6 +25,7 @@ const generateMainPage = function(bookmarks) {
   <ul class="js-bookmark-list bookmark-list">
   ${bookmarks}
   </ul>
+  ${store.STORE.error ? `<div class="js-error-box error-box"><div class="js-close-error-button close-error-button"><i class="fas fa-window-close"></i></div><div class="error-text">${store.STORE.error}</div></div>` : ''}
 </div>`;
 };
 
@@ -32,24 +33,24 @@ const generateBookmarkItemElement = function(item) {
   let starCount = '';
   switch(item.rating) {
   case(1):
-    starCount = "<i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i>"
+    starCount = "<i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i>";
     break;
   case(2):
-    starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i>"
+    starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i>";
     break;
   case(3):
-    starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i>"
+    starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i>";
     break;
   case(4):
-    starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i>"
+    starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i>";
     break;
   case(5):
     starCount = "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i>";
   }
-  return `<li>
-    <div class="shrunk-view">
+  return `<li tabindex="0" class="js-tab">
+    <div class="shrunk-view js-shrunk-view" data-id="${item.id}">
         <div class="title main-tile">
-            <p tabindex="0">${item.title}</p>
+            <p>${item.title}</p>
         </div>
         <div class="list-rating-display main-tile">${starCount}</div>
         
@@ -57,9 +58,9 @@ const generateBookmarkItemElement = function(item) {
     <div class="description-container">
         
         <div class="js-expanded expanded-description ${item.expanded ? '' : 'hidden'}">
-        <div clas="delete-button-container"><button type="submit" class="close-btn"><i class="far fa-trash-alt"></i></button></div>
+        <div clas="delete-button-container"><button type="submit" class="js-delete-btn delete-btn"><i class="far fa-trash-alt"></i></button></div>
             <p class="description-text">${item.desc}</p>
-            <a href="${item.url}" alt="link to visit ${item.title}"><button class="visit-site-btn">Visit Page</button></a>
+            <a href="${item.url} target="_blank" alt="link to visit ${item.title}"><button class="visit-site-btn">Visit Page</button></a>
         </div>
     </div>
 </li>`;
@@ -96,16 +97,8 @@ const generateAddBookmarkPage = function() {
     </div>`;
 };
 
-const renderError = function() {
-  if (store.STORE.error) {
-    const showError = generateAddBookmarkPage();
-    $('.js-main-content').html(showError);
-  }
-};
-
 
 const render = function() {
-  renderError();
   if (store.STORE.adding) {
     const addPageString = generateAddBookmarkPage();
     $('.main-content').html(addPageString);
@@ -117,7 +110,7 @@ const render = function() {
 
     const bookmarkListHTML = generateBookmarkListString(items);
     const fullPage = generateMainPage(bookmarkListHTML);
-    //console.log('filter value:', store.STORE.filter);
+    
 
     $('.js-main-content').html(fullPage);
   }
@@ -189,10 +182,48 @@ const handleFilterSelection = function() {
   });
 };
 
+const findExpansionElementId = function(item) {
+  return $(item).data('id');
+};
+
+const findExpansionElementIdKeypress = function(item) {
+  return $(item).children().data('id');
+};
+
 const handleExpansion = function() {
-  //event listener for li's
-  //find expansion div in li and toggle hidden class
-  //render
+  $('.js-main-content').on('click', '.js-shrunk-view', (event => {
+    const id = findExpansionElementId(event.currentTarget);
+    const itemInStore = store.findById(id);
+    itemInStore.expanded = !itemInStore.expanded;
+    render();    
+  }));
+};
+
+const handleExpansionKeypress = function() {
+  ('.js-main-content').on('keypress', '.js-tab', event => {
+      if (event.key === ' ' || event.key === 'Enter') {
+        const id = findExpansionElementIdKeypress(event.currentTarget);
+        console.log(id);
+     };
+  });
+};
+
+const findIdForDelete = function(item) {
+  return $(item).parent().parent().parent().siblings().data('id');
+};
+
+const handleDeleteButtonClick = function() {
+  $('.js-main-content').on('click', '.js-delete-btn', event => {
+    const id = findIdForDelete(event.currentTarget);
+    api.deleteBookmark(id)
+      .then(() => {
+        store.findAndDelete(id);
+        render();
+      }).catch((error) => {
+        store.setError(error.message);
+        render();
+      });
+  });
 };
 
 
@@ -203,6 +234,9 @@ const bindEventListeners = function() {
   handleSubmitNewBookmark();
   handleCloserErrorBox();
   handleFilterSelection();
+  handleExpansion();
+  handleExpansionKeypress();
+  handleDeleteButtonClick();
 };
 
 export default {

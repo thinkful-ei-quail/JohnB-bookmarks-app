@@ -9,6 +9,14 @@ const STORE = {
   filter: 0
 };
 
+const findById = function (id) {
+  return this.STORE.bookmarks.find(currentItem => currentItem.id === id);
+};
+
+const findAndDelete = function(id) {
+  this.STORE.bookmarks = this.STORE.bookmarks.filter(bookmark => bookmark.id !== id);
+};
+
 const addBookmark = function(item) {
   item.expanded = false;
   this.STORE.bookmarks.push(item);
@@ -23,4 +31,6 @@ export default {
   STORE,
   addBookmark,
   setError,
+  findById,
+  findAndDelete,
 };
