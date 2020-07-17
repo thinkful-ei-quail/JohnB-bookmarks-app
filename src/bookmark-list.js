@@ -60,7 +60,7 @@ const generateBookmarkItemElement = function(item) {
         <div class="js-expanded expanded-description ${item.expanded ? '' : 'hidden'}">
         <div clas="delete-button-container"><button type="submit" class="js-delete-btn delete-btn"><i class="far fa-trash-alt"></i></button></div>
             <p class="description-text">${item.desc}</p>
-            <a href="${item.url} target="_blank" alt="link to visit ${item.title}" class="page-link">Visit Page</a>
+            <a href="${item.url}" target="_blank" alt="link to visit ${item.title}" class="page-link">Visit Page</a>
         </div>
     </div>
 </li>`;
